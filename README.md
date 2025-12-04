@@ -1,7 +1,7 @@
 My Diary Web Application
-
+```
 My Diary is a modern, interactive web application that allows users to create, view, update, and delete personal notes. The app features a dark neon-inspired UI with a clean, responsive design.
-
+```
 🎨 Features
 ```
 
@@ -69,5 +69,6 @@ Dark/light mode toggle
 Offline note storage
 ```
 ⚖️ License
-
+```
 This project is licensed under the MIT License.
+```
