@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
           <Header/>
-          <div className=" min-h-screen bg-linear-to-b from-gray-900 via-gray-800 to-black text-white">
+          <div className="min-h-screen bg-linear-to-b from-gray-900 via-gray-800 to-black text-white">
           {children}
           </div>
           <Footer/>
