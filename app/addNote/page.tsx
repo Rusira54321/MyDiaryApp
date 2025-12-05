@@ -1,6 +1,7 @@
 import React from 'react'
-
-const Page = () => {
+import {addNote} from "../actions/addNoteAction"
+import {prisma} from "../../lib/prisma"
+const Page = async() => {
   return (
     <div className="pt-16 min-h-[calc(100vh-4rem)] flex justify-center items-center">
 
@@ -16,7 +17,7 @@ const Page = () => {
           ADD NEW NOTE
         </h1>
 
-        <form className="flex flex-col gap-6">
+        <form action={addNote} className="flex flex-col gap-6">
 
           {/* Title */}
           <div className="flex flex-col gap-2">
@@ -25,6 +26,7 @@ const Page = () => {
             </label>
             <input 
               type="text"
+              name='title'
               placeholder="Enter note title"
               className="px-4 py-2 rounded-lg bg-black/60
                          border border-cyan-400/30
@@ -42,6 +44,7 @@ const Page = () => {
             <textarea 
               placeholder="Write your note..."
               rows={4}
+              name='content'
               className="px-4 py-2 rounded-lg bg-black/60
                          border border-pink-400/30
                          text-white outline-none
@@ -56,7 +59,8 @@ const Page = () => {
               DATE & TIME
             </label>
             <input 
-              type="datetime-local"
+              type="date"
+              name='date'
               className="px-4 py-2 rounded-lg bg-black/60
                          border border-purple-400/30
                          text-white outline-none
