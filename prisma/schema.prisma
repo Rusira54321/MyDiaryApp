@@ -19,6 +19,5 @@ model Post{
   content String
   createdAt DateTime @default(now())
   updatedAt DateTime?
-  @@unique([title,createdAt]) 
 }
 
