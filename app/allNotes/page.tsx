@@ -2,7 +2,7 @@ import React from 'react';
 import { prisma } from '../../lib/prisma';
 import { FiFileText, FiClock } from "react-icons/fi";
 import { MdNotes } from "react-icons/md";
-
+import DeleteButton from '../components/DeleteButton';
 export const dynamic = 'force-dynamic';
 
 const Page = async () => {
@@ -39,17 +39,15 @@ const Page = async () => {
                 </h2>
               </div>
 
-              {/* Content */}
-              <p className="text-gray-300 leading-relaxed mb-4">
-                {note.content}
-              </p>
-
               {/* Created date */}
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <FiClock size={16} />
                 <span>
                   {new Date(note.createdAt).toLocaleDateString()}
                 </span>
+              </div>
+              <div className='mt-3'>
+              <DeleteButton id={note.id}/>
               </div>
             </div>
           ))
