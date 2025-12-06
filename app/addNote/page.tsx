@@ -1,30 +1,67 @@
-import React from 'react'
-import {addNote} from "../actions/addNoteAction"
-import {prisma} from "../../lib/prisma"
-const Page = async() => {
+'use client'
+import axios from 'axios'
+import React, { FormEvent, useState } from 'react'
+
+const Page = () => {
+  const [title,setTitle] = useState('')
+  const [content,setContent] = useState('')
+  const [date,setDate] = useState('')
+  const [error,setError] = useState('')
+  const [success,setSuccess] = useState('')
+
+  const handleSubmit = async(e:FormEvent) =>{
+      e.preventDefault()
+      setError('')
+      setSuccess('')
+
+      try{
+        const res = await axios.post('/api/Note',{
+          title,
+          content,
+          date
+        })
+        setSuccess(res?.data?.message)
+        setTitle('')
+        setContent('')
+        setDate('')
+      }catch(err:unknown)
+      {
+          // Narrow the error type
+        if (axios.isAxiosError(err)) {
+          setError(err?.response?.data?.error || 'Axios error occurred');
+        } else if (err instanceof Error) {
+          setError(err?.message);
+        } else {
+          setError('Something went wrong');
+        }
+      }
+  }
+
   return (
     <div className="pt-16 min-h-[calc(100vh-4rem)] flex justify-center items-center">
-
-      {/* Neon Glass Card */}
       <div className="w-full max-w-md p-8 rounded-2xl  
                       bg-white/5 backdrop-blur-xl 
                       border border-cyan-400/30
                       shadow-[0_0_30px_#22d3ee]">
 
-        {/* Title */}
-        <h1 className="text-3xl font-bold text-center mb-8 
+        <h1 className="text-3xl font-bold text-center mb-4 
                        text-cyan-400 tracking-widest">
           ADD NEW NOTE
         </h1>
 
-        <form action={addNote} className="flex flex-col gap-6">
+        {/* Success/Error Messages */}
+        {success && <p className="text-green-400 text-center mb-4">{success}</p>}
+        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
           {/* Title */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-300 tracking-wide">
-              TITLE
-            </label>
+            <label className="text-sm text-gray-300 tracking-wide">TITLE</label>
             <input 
+              required
+              value={title}
+              onChange={(e)=>setTitle(e.target.value)}
               type="text"
               name='title'
               placeholder="Enter note title"
@@ -38,12 +75,13 @@ const Page = async() => {
 
           {/* Content */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-300 tracking-wide">
-              CONTENT
-            </label>
+            <label className="text-sm text-gray-300 tracking-wide">CONTENT</label>
             <textarea 
               placeholder="Write your note..."
               rows={4}
+              onChange={(e)=>setContent(e.target.value)}
+              value={content}
+              required
               name='content'
               className="px-4 py-2 rounded-lg bg-black/60
                          border border-pink-400/30
@@ -55,11 +93,11 @@ const Page = async() => {
 
           {/* Date */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-300 tracking-wide">
-              DATE & TIME
-            </label>
+            <label className="text-sm text-gray-300 tracking-wide">DATE & TIME</label>
             <input 
               type="date"
+              value={date}
+              onChange={(e)=>setDate(e.target.value)}
               name='date'
               className="px-4 py-2 rounded-lg bg-black/60
                          border border-purple-400/30
@@ -88,4 +126,3 @@ const Page = async() => {
 }
 
 export default Page
-
