@@ -8,9 +8,9 @@ export async function POST(req:NextRequest)
     {
         return NextResponse.json({error:"Title must have at least 3 characters"},{status:400});
     }
-    if(!content || content.trim().length<10)
+    if(!content || content.trim().length<10 || content.trim().length>50)
     {
-        return NextResponse.json({error:"Content must have at least 10 characters"},{status:400});
+        return NextResponse.json({error:"Content must have at least 10 characters and maximumly 50 characters"},{status:400});
     }
     if(date)
     {
