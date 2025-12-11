@@ -1,6 +1,6 @@
 import React from "react";
 import { prisma } from "../../../lib/prisma";
-
+import EditButton from "@/app/components/EditButton";
 const Page = async (context: { params: Promise<{ id: string }> }) => {
   const NoteId = Number((await context.params).id);
 
@@ -57,12 +57,7 @@ return (
         {note.content}
       </p>
 
-      {/* Button */}
-      <button className="mt-8 px-6 py-2 rounded-lg text-lg font-mono text-white 
-        bg-gradient-to-r from-purple-600 to-purple-800 
-        hover:shadow-[0_0_20px_#a855f7] hover:scale-105 transition-all">
-        Edit Note
-      </button>
+      <EditButton id={note.id}/>
 
     </div>
   </div>

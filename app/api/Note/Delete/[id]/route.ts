@@ -7,7 +7,7 @@ export async function DELETE(request:NextRequest,context:{params:Promise<{id:str
         const noteId = parseInt(id)
         if(isNaN(noteId))
         {
-            return NextResponse.json({error:`Invalid product ID,${id}`},{status:400});
+            return NextResponse.json({error:`Invalid Note ID,${id}`},{status:400});
         }
         await prisma.post.delete({
             where:{
