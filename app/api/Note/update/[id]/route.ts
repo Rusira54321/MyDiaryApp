@@ -15,6 +15,14 @@ export async function POST(request:NextRequest,context:{params:Promise<{id:strin
     {
         return NextResponse.json({error:"All fields are required"},{status:400});
     }
+    if(title.trim().length<3)
+    {
+        return NextResponse.json({error:"Title must have at least 3 characters"},{status:400});
+    }
+    if(content.trim().length<10 || content.trim().length>50)
+    {
+        return NextResponse.json({error:"Content must have at least 10 characters and maximumly 50 characters"},{status:400});
+    }
     await prisma.post.update({
         where:{
             id:id
